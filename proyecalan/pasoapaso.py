@@ -31,11 +31,13 @@ class MiDialogo(QDialog):
     def __init__(self):
         super().__init__()
         uic.loadUi("C:/Users/packo/OneDrive/Desktop/cosas uni/proyecalan/ventana_eliminar.ui", self)
+        
     def tt (self):
         
         texto = str(self.n_asiento.text())
         return texto
-
+    def marcar(self):
+        self.disponinilidad1.setEnabled(False)
 
 
 class Caja_i(QDialog):
@@ -87,6 +89,7 @@ class MiVentana(QMainWindow):
                 if self.asientos_larioja[i] == 'l':
                     self.b[i].setEnabled(True)
                     #print (f'habilitando el asiento {i}')
+                    
                 else:
                     self.b[i].setEnabled(False)
                     #print(f'desabilitando el asiento {i}')
@@ -94,6 +97,7 @@ class MiVentana(QMainWindow):
             self.asi() 
         #mendoza
         elif self.radioButton_3.isChecked() and self.radioButton.isChecked():
+            self.precio_pasaje_mendoza
             i=0
             while i < len(self.asientos):
                 #print(self.asientos[i])
@@ -140,6 +144,7 @@ class MiVentana(QMainWindow):
             window_turned =  Vuelto_final()
             window_turned.vuelto_cliente_f.setText('$' + str(self.Vuelto))
             if (window_turned.exec()):
+
                 window_turned.show()                    
         dinero_general = dinero.dinero_de_caja(cnt_asientos)
         self.box_cash.setText(str(dinero_general))
