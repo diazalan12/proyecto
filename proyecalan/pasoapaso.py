@@ -128,7 +128,7 @@ class MiVentana(QMainWindow):
     def reserva(self):
         x = 0 
         cnt_asientos = 0 
-        hola=hola
+
         #bucle para verificar que checkbox estan seleccionados y no ir verificando uno por uno
         while x < len(self.asientos_larioja):  
             variable_name = f'disponibilidad_{x}'
