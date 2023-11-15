@@ -20,7 +20,7 @@ class Dinero():
 class Vuelto_final(QDialog):
     def __init__(self):
         super().__init__()
-        uic.loadUi("C:/Users/packo/OneDrive/Desktop/cosas uni/proyecalan/turned_f.ui", self)
+        uic.loadUi("turned_f.ui", self)
     #def tt (self):
         
      #   texto = str(self.n_asiento.text())
@@ -28,10 +28,21 @@ class Vuelto_final(QDialog):
 
 
 class MiDialogo(QDialog):
-    def __init__(self):
+    def __init__(self,  asientos_larioja):
         super().__init__()
-        uic.loadUi("C:/Users/packo/OneDrive/Desktop/cosas uni/proyecalan/ventana_eliminar.ui", self)
+        uic.loadUi("ventana_eliminar.ui", self)
+        # Obtén referencias a los checkboxes del archivo UI
+        self.checkboxes = [self.disponibilidad_0,self.disponibilidad_1, self.disponibilidad_2,self.disponibilidad_3, self.disponibilidad_4]
         
+        # Configura el estado inicial de los checkboxes según los asientos_larioja
+        for i in range(len(self.checkboxes)):
+            checkbox = self.checkboxes[i]
+            estado = asientos_larioja[i]
+            checkbox.setEnabled(estado == 'o')  # Invertir el estado
+
+    def obtener_asientos_seleccionados(self):
+        return [1 if checkbox.isChecked() else 0 for checkbox in self.checkboxes]
+
     def tt (self):
         
         texto = str(self.n_asiento.text())
@@ -43,7 +54,7 @@ class MiDialogo(QDialog):
 class Caja_i(QDialog):
     def __init__(self):
         super().__init__()
-        uic.loadUi("C:/Users/packo/OneDrive/Desktop/cosas uni/proyecalan/ventana_caja_inicial.ui", self)
+        uic.loadUi("ventana_caja_inicial.ui", self)
         
 
     
@@ -51,11 +62,11 @@ class Caja_i(QDialog):
 class Dialogo_vuelto(QDialog):
     def __init__(self):
         super().__init__()
-        uic.loadUi("C:/Users/packo/OneDrive/Desktop/cosas uni/proyecalan/window_turned.ui", self)
+        uic.loadUi("window_turned.ui", self)
 class MiVentana(QMainWindow):
     def __init__(self):
         super().__init__()
-        uic.loadUi("C:/Users/packo/OneDrive/Desktop/cosas uni/proyecalan/pasoapaso.ui" , self)
+        uic.loadUi("pasoapaso.ui" , self)
         #botones y conectividades:
         self.boton_reserva.clicked.connect(self.reserva)
         self.button.clicked.connect(self.mostrar_asientos)
@@ -152,11 +163,19 @@ class MiVentana(QMainWindow):
     
     
     def ventana_eliminar(self):
-        dialogo = MiDialogo()
-        if (dialogo.exec()):
-            elemento = int(dialogo.tt())
-            self.asientos_larioja[elemento] = 'l'
-            self.b[elemento].setEnabled(True)
+        # Crear una instancia de MiDialogo con la lista invertida
+        dialogo = MiDialogo(self.asientos_larioja)
+
+        # Si se acepta el diálogo
+        if dialogo.exec():
+            asientos_seleccionados = dialogo.obtener_asientos_seleccionados()
+
+            # Actualizar la disponibilidad en la ventana principal
+            for i in range(len(asientos_seleccionados)):
+                if asientos_seleccionados[i]:
+                    self.asientos_larioja[i] = 'l'  # Invertir el estado
+                    self.b[i].setEnabled(True) # Habilitar el botón
+
     
     def asi(self):
         b = self.asientos_larioja.count("l")
