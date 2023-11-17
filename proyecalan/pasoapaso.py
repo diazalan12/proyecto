@@ -32,7 +32,7 @@ class MiDialogo(QDialog):
         super().__init__()
         uic.loadUi("ventana_eliminar.ui", self)
         # Obtén referencias a los checkboxes del archivo UI
-        self.checkboxes = [self.disponibilidad_0,self.disponibilidad_1, self.disponibilidad_2,self.disponibilidad_3, self.disponibilidad_4]
+        self.checkboxes = [self.disponibilidad_0,self.disponibilidad_1, self.disponibilidad_2,self.disponibilidad_3, self.disponibilidad_4,self.disponibilidad_5,self.disponibilidad_6,self.disponibilidad_7,self.disponibilidad_8,self.disponibilidad_9]
         
         # Configura el estado inicial de los checkboxes según los asientos_larioja
         for i in range(len(self.checkboxes)):
@@ -72,16 +72,16 @@ class MiVentana(QMainWindow):
         self.button.clicked.connect(self.mostrar_asientos)
         self.button_deleted.clicked.connect(self.ventana_eliminar) 
         #self.button_boxcash.clicked.connect(self.monto)
-        self.b = [self.disponibilidad_0,self.disponibilidad_1, self.disponibilidad_2,self.disponibilidad_3, self.disponibilidad_4]
+        self.b = [self.disponibilidad_0,self.disponibilidad_1, self.disponibilidad_2,self.disponibilidad_3, self.disponibilidad_4,self.disponibilidad_5,self.disponibilidad_6,self.disponibilidad_7,self.disponibilidad_8,self.disponibilidad_9]
         ventana_caja = Caja_i()
         ventana_caja.exec()
         self.CajaInicial = ventana_caja.lineDinero.text()
         self.box_cash.setText("caja inicial: " + str(self.CajaInicial))
-        for i in range(5):
+        for i in range(10):
             self.b[i].setEnabled(False)
     #listas a usar:
-    asientos = ['g'] * 5
-    asientos_larioja = ['l']*5
+    asientos = ['g'] * 10
+    asientos_larioja = ['l']*10
     
    
    
@@ -125,6 +125,7 @@ class MiVentana(QMainWindow):
             
     #RESERVA DE ASIENTOS
 
+    
     def reserva(self):
         x = 0 
         cnt_asientos = 0 
@@ -179,7 +180,7 @@ class MiVentana(QMainWindow):
     
     def asi(self):
         b = self.asientos_larioja.count("l")
-        self.asientoslibres.setText('dinero:$ '+str(b))
+        self.asientoslibres.setText('asientos libres'+str(b))
 
 
 
