@@ -106,7 +106,7 @@ class MiVentana(QMainWindow):
             self.b[i].setEnabled(False)
     #listas a usar:
     asientos_mendoza = ['l'] * 10
-    asientos_larioja = ['l']*10
+    asientos_larioja = ['l']* 10
     
    
    
@@ -123,14 +123,11 @@ class MiVentana(QMainWindow):
             i=0
             while i < len(self.asientos_larioja): #aca habilitamos y deshabilitamos botones
 
-                #print(self.asientos_larioja[i])
                 if self.asientos_larioja[i] == 'l':
                     self.b[i].setEnabled(True)
-                    #print (f'habilitando el asiento {i}')
                     
                 else:
                     self.b[i].setEnabled(False)
-                    #print(f'desabilitando el asiento {i}')
                 i = i + 1
             self.asi() 
         #mendoza
@@ -158,18 +155,20 @@ class MiVentana(QMainWindow):
 
         #bucle para verificar que checkbox estan seleccionados y no ir verificando uno por uno
         while x < len(self.asientos_larioja):  
-            variable_name = f'disponibilidad_{x}'
-            checkbox = getattr(self, variable_name, None) #esto comprueba que el asiento 'disponibilidad_1 o disponibilidad_2 3 4 etc' este disponible
-            
-            
-            if checkbox and checkbox.isChecked():
+            #variable_name = f'disponibilidad_{x}'
+            #checkbox = getattr(self, variable_name, None) #esto comprueba que el asiento 'disponibilidad_1 o disponibilidad_2 3 4 etc' este disponible
+            if self.b[x].isChecked():
+                self.asientos_larioja[x] = 'o'
+                self.b[x].setEnabled(False)
+                self.b[x].setChecked(False) 
+            #if checkbox and checkbox.isChecked():
                 #print(f'entrando al lugar de la lista {x}')
-                self.asientos_larioja[x] = 'o'                                             
-                checkbox.setEnabled(False)
-                checkbox.setChecked(False)
-                cnt_asientos += 1
-                #print(f'El checkbox {variable_name} está marcado')
-                print (cnt_asientos)
+            #    self.asientos_larioja[x] = 'o'                                             
+            #    checkbox.setEnabled(False)
+            #    checkbox.setChecked(False)
+            #    cnt_asientos += 1
+            #    #print(f'El checkbox {variable_name} está marcado')
+            #    print (cnt_asientos)
             
             x = x + 1
         
