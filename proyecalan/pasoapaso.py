@@ -1,6 +1,31 @@
 from PyQt6.QtWidgets import QApplication, QMainWindow, QDialog
 from PyQt6 import uic
 #from hojadeclases import *
+
+
+class TransporteClase:
+    def __init__(self, radioButton_destino, radioButton_horario, lista_asientos,precio_pasajes,b):
+        self.radioButton_destino = radioButton_destino
+        self.radioButton_horario = radioButton_horario
+        self.lista_asientos = lista_asientos
+        self.precio_pasajes = precio_pasajes
+        self.b=b
+
+    def actualizar_precio_y_asientos(self):
+        print("entro")
+        if self.radioButton_destino.isChecked() and self.radioButton_horario.isChecked():
+            precio_pasaje = 1800
+            self.precio_pasajes.setText("$" + str(precio_pasaje))
+            
+            for i, estado_asiento in enumerate(self.lista_asientos):
+                if estado_asiento == 'l':
+                    self.b[i].setEnabled(True)
+                    print("habilito {i}")
+                else:
+                    self.b[i].setEnabled(False)
+                    print("deshabilito {i}")
+
+
 class Dinero():
     def __init__(self,m,p,ppas):
         self.caja_inicial = m
@@ -80,7 +105,7 @@ class MiVentana(QMainWindow):
         for i in range(10):
             self.b[i].setEnabled(False)
     #listas a usar:
-    asientos = ['g'] * 10
+    asientos_mendoza = ['l'] * 10
     asientos_larioja = ['l']*10
     
    
@@ -90,6 +115,8 @@ class MiVentana(QMainWindow):
    #ACA ES EL TEMA DE LOS ASIENTOS      
     def mostrar_asientos(self):
         #La Rioja
+        objeto_mendoza = TransporteClase(self.button_mendoza,self.radioButton_2,self.asientos_mendoza,self.precio_pasajes,self.b)
+        objeto_mendoza.actualizar_precio_y_asientos()  
         if self.radioButton_2.isChecked() and self.radioButton.isChecked(): #esta parte es donde chequea que destino y horario estamos seleccionando
             self.precio_pasaje_LR= 1800
             self.precio_pasajes.setText("$" + str(self.precio_pasaje_LR))
@@ -107,22 +134,21 @@ class MiVentana(QMainWindow):
                 i = i + 1
             self.asi() 
         #mendoza
-        elif self.radioButton_3.isChecked() and self.radioButton.isChecked():
-            self.precio_pasaje_mendoza
-            i=0
-            while i < len(self.asientos):
-                #print(self.asientos[i])
-                if self.asientos[i] == 'g':
-                    self.b[i].setEnabled(True)
-                    #print (f'habilitando el asiento {i}')
-                else:
-                    self.b[i].setEnabled(False)
+        #elif self.radioButton_3.isChecked() and self.radioButton.isChecked():
+        #    self.precio_pasaje_mendoza
+        #    i=0
+        #    while i < len(self.asientos):
+        #        #print(self.asientos[i])
+        #        if self.asientos[i] == 'g':
+        #            self.b[i].setEnabled(True)
+        #            #print (f'habilitando el asiento {i}')
+        #        else:
+        #            self.b[i].setEnabled(False)
                     #print(f'desabilitando el asiento {i}')
     
             
                 
-                i = i + 1
-            
+        #        i = i + 1
     #RESERVA DE ASIENTOS
 
     
